@@ -20,11 +20,6 @@ cv::Mat hsv_range(const cv::Mat& input_image) {
   cv::createTrackbar("s_high", "Result", &hsv_params.s1, 255);
   cv::createTrackbar("v_low", "Result", &hsv_params.v0, 255);
   cv::createTrackbar("v_high", "Result", &hsv_params.v1, 255);
-#if (CV_VERSION_MAJOR >= 4)
-  cv::namedWindow("Result", cv::WINDOW_NORMAL);
-#else
-  cv::namedWindow("Result", CV_WINDOW_NORMAL);
-#endif
   cv::imshow("Result", result_image);
 
   return result_image;

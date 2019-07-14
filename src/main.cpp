@@ -55,20 +55,22 @@ int main(int argc, char** argv) {
   std::cout << "Frame property: " << camera_width << "x" << camera_height << "@"
             << camera_fps << "fps" << std::endl;
 
-  // Feed captured frames into the writer
+  // Feed captured frames into the processor
   std::cout << "\033[1;34mStart capturing\033[0m" << std::endl;
+#if (CV_VERSION_MAJOR >= 4)
+  cv::namedWindow("Original", cv::WINDOW_NORMAL);
+  cv::namedWindow("Result", cv::WINDOW_NORMAL);
+#else
+  cv::namedWindow("Original", CV_WINDOW_NORMAL);
+  cv::namedWindow("Result", CV_WINDOW_NORMAL);
+#endif
   std::cout << "Press any key to exit" << std::endl;
-  while (true) {
+  while (cv::getWindowProperty("Original", 0) >= 0) {
     cv::Mat frame;
     // get a new frame from camera
     cap >> frame;
     if (!frame.empty()) {
       // show the original frame
-#if (CV_VERSION_MAJOR >= 4)
-      cv::namedWindow("Original", cv::WINDOW_NORMAL);
-#else
-      cv::namedWindow("Original", CV_WINDOW_NORMAL);
-#endif
       cv::imshow("Original", frame);
       // process frame
       cv::Mat processed = hsv_range(frame);
