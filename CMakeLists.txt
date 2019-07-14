@@ -13,6 +13,12 @@ include_directories(
     ${OpenCV_INCLUDE_DIRS}
 )
 
+IF(APPLE)
+    # Fix linking on 10.14+. See https://stackoverflow.com/questions/54068035
+    link_directories(/usr/local/lib)
+    include_directories(/usr/local/include)
+ENDIF()
+
 add_executable(
     ${PROJECT_NAME}
     src/main.cpp

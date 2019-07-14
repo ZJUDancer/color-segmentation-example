@@ -41,19 +41,28 @@ int main(int argc, char** argv) {
 
   // Get properties of input video frame
   int camera_width(640), camera_height(480), camera_fps(30);
+#if (CV_VERSION_MAJOR >= 4)
+  camera_width = cap.get(cv::CAP_PROP_FRAME_WIDTH);
+  camera_height = cap.get(cv::CAP_PROP_FRAME_HEIGHT);
+  camera_fps = cap.get(cv::CAP_PROP_FPS);
+#else
   camera_width = cap.get(CV_CAP_PROP_FRAME_WIDTH);
   camera_height = cap.get(CV_CAP_PROP_FRAME_HEIGHT);
   camera_fps = cap.get(CV_CAP_PROP_FPS);
+#endif
   std::cout << "Frame property: " << camera_width << "x" << camera_height << "@"
             << camera_fps << "fps" << std::endl;
 
   // Feed captured frames into the writer
-  std::cout << "\033[1;34mStarting capturing\033[0m" << std::endl;
+  std::cout << "\033[1;34mStart capturing\033[0m" << std::endl;
+  std::cout << "Press any key to exit" << std::endl;
   while (true) {
     cv::Mat frame;
     // get a new frame from camera
     cap >> frame;
     if (!frame.empty()) {
+      // show the original frame
+      cv::imshow("Original", frame);
       // process frame
     } else {
       std::cerr << "Skip invalid frame" << std::endl;
