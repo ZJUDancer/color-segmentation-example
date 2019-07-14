@@ -8,7 +8,8 @@ int main(int argc, char** argv) {
   // wrap everything in a try block.
   // do this every time, because exceptions will be thrown for problems.
   try {
-    TCLAP::CmdLine cmd("Color segmentation for live video stream", ' ', "1.0.0");
+    TCLAP::CmdLine cmd("Color segmentation for live video stream", ' ',
+                       "1.0.0");
     TCLAP::ValueArg<std::string> dev_arg("d", "device", "path to camera device",
                                          false, "", "string");
     cmd.add(dev_arg);
