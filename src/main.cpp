@@ -2,6 +2,8 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
+#include "hsv_range.hpp"
+
 int main(int argc, char** argv) {
   // Parse arguments
   std::string camera_device;
@@ -62,8 +64,14 @@ int main(int argc, char** argv) {
     cap >> frame;
     if (!frame.empty()) {
       // show the original frame
+#if (CV_VERSION_MAJOR >= 4)
+      cv::namedWindow("Original", cv::WINDOW_NORMAL);
+#else
+      cv::namedWindow("Original", CV_WINDOW_NORMAL);
+#endif
       cv::imshow("Original", frame);
       // process frame
+      cv::Mat processed = hsv_range(frame);
     } else {
       std::cerr << "Skip invalid frame" << std::endl;
     }
@@ -73,5 +81,6 @@ int main(int argc, char** argv) {
     }
   }
   // the camera will be de-initialized automatically in VideoCapture destructor
+  cv::destroyAllWindows();
   return 0;
 }

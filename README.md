@@ -6,16 +6,16 @@ Example for color segmentation.
 
 0. You need to install essential libraries before building:
 
-- `OpenCV`
-- `libtclap-dev`
+  - `OpenCV`
+  - `libtclap-dev`
 
 1. Build
 
-```bash
-$ cd /path/to/this/repo
-$ mkdir build && cd build
-$ cmake .. & make -j
-```
+  ```bash
+  $ cd /path/to/this/repo
+  $ mkdir build && cd build
+  $ cmake .. & make -j
+  ```
 
 ## Arguments
 
